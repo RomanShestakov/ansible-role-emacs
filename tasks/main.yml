@@ -20,6 +20,3 @@
   command: make install chdir="/tmp/emacs"
   sudo: true
   when: emacs_downloaded.changed
-
-- name: EMACS | get .emacs git repository
-  git: repo={{ dot_emacs_repo_url }} dest="/home/vagrant/.emacs.d" accept_hostkey=yes
