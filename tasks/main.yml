@@ -18,5 +18,5 @@
 
 - name: EMACS | install emacs
   command: make install chdir="/tmp/emacs"
-  sudo: true
+  become: true
   when: emacs_downloaded.changed
