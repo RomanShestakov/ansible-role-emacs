@@ -9,7 +9,7 @@
   when: emacs_downloaded.changed
 
 - name: EMACS | make emacs Makefile
-  command: ./configure --prefix=/usr/local --without-makeinfo --with-x-toolkit --without-all chdir="/tmp/emacs"
+  command: ./configure --prefix=/usr/local --without-makeinfo --with-x-toolkit=no --without-x --without-all chdir="/tmp/emacs"
   when: emacs_downloaded.changed
 
 - name: EMACS | make emacs
