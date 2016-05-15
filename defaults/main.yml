@@ -1,2 +1,3 @@
 # file: ansible-role-emacs/defaults/main.yml
 emacs_version: "emacs-24.5"
+emacs_tmp: "/tmp/emacs"
