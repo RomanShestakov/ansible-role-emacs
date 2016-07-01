@@ -3,7 +3,7 @@
 - name: EMACS | get emacs from git repository
   git: repo={{ emacs_repo_url }}
        dest="{{ emacs_tmp }}"
-       accept_hostkey=yes
+       #accept_hostkey=yes
        version={{ emacs_version }}
   register: emacs_downloaded
 
