@@ -1,5 +1,10 @@
 # file: tasks/emacs.yml
 
+- name: EMACS | clean tmp dir
+  file:
+    state: absent
+    path: "{{ emacs_tmp }}"
+
 - name: EMACS | get emacs from git repository
   git: repo={{ emacs_repo_url }}
        dest="{{ emacs_tmp }}"
