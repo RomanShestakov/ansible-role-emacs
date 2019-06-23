@@ -1,32 +1,24 @@
 # file: tasks/emacs.yml
 
-- name: EMACS | clean tmp dir
-  file:
-    state: absent
-    path: "{{ emacs_tmp }}"
-
 - name: EMACS | get emacs from git repository
   git: repo={{ emacs_repo_url }}
-       dest="{{ emacs_tmp }}"
+       dest="{{ emacs_tmp }}_{{emacs_version}}"
        version={{ emacs_version }}
+       force=yes
   register: emacs_downloaded
 
 - name: EMACS | make emacs configure file
-  command: ./autogen.sh chdir="{{ emacs_tmp }}"
+  command: ./autogen.sh chdir="{{ emacs_tmp }}_{{emacs_version}}"
   when: emacs_downloaded.changed
 
-- name: EMACS | make emacs Makefile
+- name: EMACS | configure emacs Makefile
   command: ./configure --prefix=/usr/local
            --without-makeinfo --with-x-toolkit=no --without-x
            --without-all
-           chdir="{{ emacs_tmp }}"
+           chdir="{{ emacs_tmp }}_{{emacs_version}}"
   when: emacs_downloaded.changed
 
-- name: EMACS | make emacs
-  command: make chdir="{{ emacs_tmp }}"
-  when: emacs_downloaded.changed
-
-- name: EMACS | install emacs
-  command: make install chdir="{{ emacs_tmp }}"
+- name: EMACS | make and install emacs
+  command: make install chdir="{{ emacs_tmp }}_{{emacs_version}}"
   become: true
   when: emacs_downloaded.changed
