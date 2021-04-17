@@ -4,7 +4,7 @@
   git: repo={{ emacs_repo_url }}
        dest="{{ emacs_tmp }}_{{emacs_version}}"
        version={{ emacs_version }}
-       force=yes
+       update=no
   register: emacs_downloaded
 
 - name: EMACS | make emacs configure file
