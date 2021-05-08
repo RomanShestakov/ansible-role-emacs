@@ -12,7 +12,7 @@
 # https://stackoverflow.com/questions/34829765/ansible-git-module-clone-of-repository-while-re-run-is-throwing-exception
 - name: EMACS | Only allow the expected failure
   assert:
-    that: "not emacs_downloaded_res['failed'] or 'already exists and is not an empty directory' in emacs_downloaded_res['msg'].lower()"
+    that: "not emacs_downloaded['failed'] or 'already exists and is not an empty directory' in emacs_downloaded['msg'].lower()"
 
 - name: EMACS | make emacs configure file
   command: ./autogen.sh chdir="{{ emacs_tmp }}_{{emacs_version}}"
