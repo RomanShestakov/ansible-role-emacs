@@ -1,5 +1,11 @@
 ---
+
 # file: tasks/main.yml
+
+- name: EMACS | check if source archive exists
+  command: /usr/bin/test -e {{emacs_tmp}}
+  ignore_errors: True
+  register: emacs_arch_exists
 
 - name: EMACS | get emacs from git repository
   git: repo={{ emacs_repo_url }}
@@ -8,6 +14,7 @@
        update=no
        force=yes
   ignore_errors: yes
+  when: emacs_arch_exists.rc != 0
   register: emacs_downloaded
 
 # https://stackoverflow.com/questions/34829765/ansible-git-module-clone-of-repository-while-re-run-is-throwing-exception
