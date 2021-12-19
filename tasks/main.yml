@@ -29,8 +29,12 @@
 
 - name: EMACS | configure emacs Makefile
   command: ./configure --prefix=/usr/local
-           --without-makeinfo --with-x-toolkit=no --without-x
+           --without-makeinfo
+           --with-x-toolkit=no
+           --without-x
            --without-all
+           --with-file-notification=inotify
+           --with-json
            chdir="{{ emacs_tmp }}_{{emacs_version}}"
   when: emacs_autogen.changed
   register: emacs_configure
