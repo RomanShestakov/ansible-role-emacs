@@ -2,10 +2,10 @@
 
 # file: tasks/main.yml
 
-- name: EMACS | check if source archive exists
-  command: /usr/bin/test -e {{emacs_tmp}}
-  ignore_errors: True
-  register: emacs_arch_exists
+- name: EMACS | check if install exists
+  stat:
+    path: "{{ emacs_install_dir }}"
+  register: emacs_exists
 
 - name: EMACS | get emacs from git repository
   git: repo={{ emacs_repo_url }}
@@ -14,7 +14,7 @@
        update=no
        force=yes
   ignore_errors: yes
-  when: emacs_arch_exists.rc != 0
+  when: not emacs_exists.stat.exists
   register: emacs_downloaded
 
 # https://stackoverflow.com/questions/34829765/ansible-git-module-clone-of-repository-while-re-run-is-throwing-exception
@@ -32,9 +32,7 @@
            --without-makeinfo
            --with-x-toolkit=no
            --without-x
-           --without-all
            --with-file-notification=inotify
-           --with-json
            chdir="{{ emacs_tmp }}_{{emacs_version}}"
   when: emacs_autogen.changed
   register: emacs_configure
@@ -43,5 +41,19 @@
   command: make install chdir="{{ emacs_tmp }}_{{emacs_version}}"
   become: true
   when: emacs_configure.changed
+  register: emacs_install
 
+- name: EMACS | cleanup build
+  become: true
+  file:
+    path: "{{ emacs_build_dir }}"
+    state: absent
+  when: emacs_install.changed
+
+- name: EMACS | cleanup tmp
+  become: true
+  file:
+    path: "{{ emacs_tmp }}"
+    state: absent
+  when: emacs_install.changed
 ...
