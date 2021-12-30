@@ -4,7 +4,7 @@
 
 - name: EMACS | check if install exists
   stat:
-    path: "{{ emacs_install_dir }}"
+    path: "{{ emacs_install_dir }}/bin/{{ emacs_version }}"
   register: emacs_exists
 
 - name: EMACS | get emacs from git repository
@@ -28,7 +28,7 @@
   register: emacs_autogen
 
 - name: EMACS | configure emacs Makefile
-  command: ./configure --prefix=/usr/local
+  command: ./configure --prefix="{{ emacs_install_dir }}"
            --without-makeinfo
            --with-x-toolkit=no
            --without-x
