@@ -40,13 +40,6 @@
   when: emacs_configure.changed
   register: emacs_install
 
-- name: EMACS | cleanup build
-  become: true
-  file:
-    path: "{{ emacs_build_dir }}"
-    state: absent
-  when: emacs_install.changed
-
 - name: EMACS | cleanup tmp
   become: true
   file:
