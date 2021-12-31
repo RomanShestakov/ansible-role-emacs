@@ -28,6 +28,8 @@
            --with-x-toolkit=no
            --without-x
            --with-file-notification=inotify
+           --with-json
+           --without-all
            chdir="{{ emacs_tmp }}_{{emacs_version}}"
   when: emacs_autogen.changed
   register: emacs_configure
