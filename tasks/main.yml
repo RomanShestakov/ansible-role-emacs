@@ -9,15 +9,15 @@
 
 - name: EMACS | Get EMACS sources
   become: true
-  get_url: url={{emacs_url}} dest={{emacs_tmp}} timeout=180 force=no
+  get_url: url="{{ emacs_url }}" dest="{{ emacs_tmp }}" timeout=180 force=no
   when: not emacs_exists.stat.exists
   register: emacs_downloaded
 
 - name: EMACS | Extract EMACS sources
   become: true
-  unarchive: src={{emacs_tmp}}
+  unarchive: src="{{ emacs_tmp }}"
              dest="/tmp"
-             creates={{emacs_build}}
+             creates="{{ emacs_build }}"
              remote_src=yes
   when: emacs_downloaded.changed
   register: emacs_extract
@@ -28,17 +28,17 @@
     ./autogen.sh
   args:
     chdir:
-      {{emacs_build}}
+      "{{ emacs_build }}"
   when: emacs_downloaded.changed
   register: emacs_autogen
 
 - name: EMACS | configure emacs Makefile
   ansible.builtin.command:
   chdir:
-      {{emacs_build}}
+      "{{ emacs_build }}"
   cmd:
     ./configure
-    --prefix={{emacs_install_dir}}
+    --prefix="{{ emacs_install_dir }}"
     --without-makeinfo
     --with-x-toolkit=no
     --without-x
@@ -52,7 +52,7 @@
   ansible.builtin.command:
   args:
     chdir:
-      {{emacs_build}}
+      "{{ emacs_build }}"
   cmd:
     make install
   become: true
