@@ -1,6 +1,9 @@
 # file: ansible-role-emacs/defaults/main.yml
 
-emacs_repo_url: "https://github.com/emacs-mirror/emacs.git"
-emacs_version: "emacs-27.1"
-emacs_tmp: "/tmp/emacs"
+# EMACS
+emacs_version: "29.1"
+emacs_url: "https://ftp.wayne.edu/gnu/emacs/emacs-{{emacs_version}}.tar.gz"
+emacs_tmp: "/tmp/emacs-{{emacs_version}}.tar.gz"
+emacs_build: "/tmp/emacs-{{emacs_version}}"
+emacs_build_dir: "/tmp/emacs-{{emacs_version}}-build"
 emacs_install_dir: "/usr/local"
