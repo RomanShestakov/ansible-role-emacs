@@ -38,7 +38,6 @@
     cmd:
       ./configure
       --prefix="{{ emacs_install_dir }}"
-      --without-makeinfo
       --without-compress-install
       --with-native-compilation
       --with-x-toolkit=no
