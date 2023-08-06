@@ -39,10 +39,13 @@
       ./configure
       --prefix="{{ emacs_install_dir }}"
       --without-makeinfo
+      --without-compress-install
+      --with-native-compilation
       --with-x-toolkit=no
       --without-x
       --with-file-notification=inotify
       --with-json
+      --without-mailutils
       --without-all
   when: emacs_autogen.changed
   register: emacs_configure
