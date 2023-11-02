@@ -39,14 +39,12 @@
     cmd:
       ./configure
       --prefix="{{ emacs_install_dir }}"
-      # --with-native-compilation=aot
-      # --without-compress-install
-      # --with-x-toolkit=no
-      # --without-x
-      # --with-file-notification=inotify
-      # --with-json
-      # --without-mailutils
-      # --without-all
+      --with-tree-sitter
+      --with-native-compilation=aot
+      --with-file-notification=inotify
+      --with-json
+      --without-x-toolkit
+      --without-x
   when: emacs_autogen.changed
   register: emacs_configure
 
