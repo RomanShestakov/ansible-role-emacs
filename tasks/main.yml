@@ -2,6 +2,6 @@
 
 # file: tasks/main.yml
 
-- include: deps.yml
-- include: build.yml
+- include_tasks: deps.yml
+- include_tasks: build.yml
 ...
