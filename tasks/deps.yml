@@ -1,0 +1,47 @@
+---
+
+# file: tasks/deps.yml
+
+    build-essential \
+    texinfo \
+    libgnutls28-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libgif-dev \
+    libxpm-dev \
+    libncurses-dev \
+    libgtk-3-dev \
+    libtree-sitter-dev \
+    libmagick++-dev \
+
+- name: Tools for emacs build Ubuntu
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+
+  - build-essential
+  - texinfo
+  - libgnutls28-dev
+  - libjpeg-dev
+  - libpng-dev
+  - libtiff5-dev
+  - libgif-dev
+  - libxpm-dev
+  - libncurses-dev
+  - libgtk-3-dev
+  - libtree-sitter-dev
+  - libmagick++-dev
+  - gcc-11
+  - g++-11
+  - libgccjit0
+  - libgccjit-11-dev
+  - autoconf
+  - libjansson4
+  - libjansson-dev
+
+  when: ansible_distribution == "Ubuntu"
+
+...
