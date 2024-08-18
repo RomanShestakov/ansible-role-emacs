@@ -48,14 +48,24 @@
   when: emacs_autogen.changed
   register: emacs_configure
 
-- name: EMACS | make and install emacs
+- name: EMACS | make emacs
+  ansible.builtin.command:
+    chdir:
+      "{{ emacs_build }}"
+    cmd:
+      make -j 4
+  become: true
+  when: emacs_configure.changed
+  register: emacs_build
+
+- name: EMACS | install emacs
   ansible.builtin.command:
     chdir:
       "{{ emacs_build }}"
     cmd:
       make install
   become: true
-  when: emacs_configure.changed
+  when: emacs_build.changed
   register: emacs_install
 
 - name: EMACS | cleanup tmp
