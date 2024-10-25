@@ -34,6 +34,6 @@
   - libjansson4
   - libjansson-dev
 
-  when: ansible_distribution == "Ubuntu"
+  #when: ansible_distribution == "Ubuntu"
 
 ...

@@ -53,7 +53,7 @@
     chdir:
       "{{ emacs_build }}"
     cmd:
-      make -j 4
+      make
   become: true
   when: emacs_configure.changed
   register: emacs_build
