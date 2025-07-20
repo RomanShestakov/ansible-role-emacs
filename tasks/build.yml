@@ -5,11 +5,13 @@
 - name: EMACS | check current emacs version
   debug:
     msg: "emacs version: {{ ansible_facts.emacs_version }}"
+  ignore_errors: true
 
 - name: EMACS | Get EMACS sources
   become: true
   get_url: url="{{ emacs_url }}" dest="{{ emacs_tmp }}" timeout=180 force=no
   when: (ansible_facts[ 'emacs_version' ] != "{{ emacs_version }}")
+  ignore_errors: true
   register: emacs_downloaded
 
 - name: EMACS | Extract EMACS sources
