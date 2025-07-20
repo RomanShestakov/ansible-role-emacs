@@ -58,7 +58,7 @@
   register: emacs_install
 
 # saw some errors like Unable to change dir before execution, file name is too long
-# if make install is executed as a separate pass
+# if make install is executed as a separate passx
 # - name: EMACS | install emacs
 #   ansible.builtin.command:
 #     chdir:
@@ -69,13 +69,20 @@
 #   when: emacs_build.changed
 #   register: emacs_install
 
-- name: EMACS | add customfact version installed
-  ansible.builtin.set_fact:
-    emacs_version: "{{ emacs_version }}"
-    cacheable: true
-  become: true
+- name: EMACS | Create a directory for custom facts /etc/ansible/facts.d
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+    recurse: yes
+    mode: '0777'
+
+- name: EMACS | add emacs version customfact into /etc/ansible/facts.d
+  action: template src=emacs.fact-template.j2
+          dest="/etc/ansible/facts.d/macs.fact"
+          mode=0644
   when: emacs_install.changed
-  
+  become: true
+
 - name: EMACS | cleanup tmp
   become: true
   file:
