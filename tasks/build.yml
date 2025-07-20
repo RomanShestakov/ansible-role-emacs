@@ -59,7 +59,7 @@
   register: emacs_build
 
 - name: EMACS | install emacs
-  ansible.builtin.command:
+  ansible.builtin.shell:
     chdir:
       "{{ emacs_build }}"
     cmd:
