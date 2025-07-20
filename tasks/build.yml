@@ -4,7 +4,7 @@
 
 - name: EMACS | check current emacs version
   debug:
-    msg: "emacs version: {{ ansible_local.emacs_version | default( 0 ) }}"
+    msg: "emacs version: {{ ansible_local.emacs.emacs_version | default( 0 ) }}"
 
 - name: EMACS | Get EMACS sources
   become: true
