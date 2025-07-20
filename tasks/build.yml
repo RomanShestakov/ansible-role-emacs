@@ -57,6 +57,8 @@
   when: emacs_configure.changed
   register: emacs_install
 
+# saw some errors like Unable to change dir before execution, file name is too long
+# if make install is executed as a separate pass
 # - name: EMACS | install emacs
 #   ansible.builtin.command:
 #     chdir:
@@ -70,6 +72,7 @@
 - name: EMACS | add customfact version installed
   ansible.builtin.set_fact:
     emacs_version: "{{ emacs_version }}"
+    cacheable: true
   become: true
   when: emacs_install.changed
   
