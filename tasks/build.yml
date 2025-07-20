@@ -52,22 +52,20 @@
     chdir:
       "{{ emacs_build }}"
     cmd:
-      make
+      make install
   become: true
   when: emacs_configure.changed
-  register: emacs_build
-
-- name: EMACS | install emacs
-  ansible.builtin.shell:
-    chdir:
-      "{{ emacs_build }}"
-    cmd:
-      make install
-    stdin_add_newline:
-      false
-  become: true
-  when: emacs_build.changed
   register: emacs_install
+
+# - name: EMACS | install emacs
+#   ansible.builtin.command:
+#     chdir:
+#       "{{ emacs_build }}"
+#     cmd:
+#       make install
+#   become: true
+#   when: emacs_build.changed
+#   register: emacs_install
 
 - name: EMACS | add customfact version installed
   ansible.builtin.set_fact:
