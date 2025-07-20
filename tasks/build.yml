@@ -4,12 +4,12 @@
 
 - name: EMACS | check current emacs version
   debug:
-    msg: "emacs version: {{ ansible_facts.emacs_version | default( 0 ) }}"
+    msg: "emacs version: {{ ansible_local.emacs_version | default( 0 ) }}"
 
 - name: EMACS | Get EMACS sources
   become: true
   get_url: url="{{ emacs_url }}" dest="{{ emacs_tmp }}" timeout=180 force=no
-  when: ( ansible_facts.emacs_version | default( 0 ) != emacs_version )
+  when: ( ansible_local.emacs_version | default( 0 ) != emacs_version )
   register: emacs_downloaded
 
 - name: EMACS | Extract EMACS sources
@@ -78,11 +78,11 @@
 
 - name: EMACS | add emacs version customfact into /etc/ansible/facts.d
   action: template src=emacs.fact-template.j2
-          dest="/etc/ansible/facts.d/macs.fact"
+          dest="/etc/ansible/facts.d/emacs.fact"
           mode=0644
   when: emacs_install.changed
   become: true
-
+4
 - name: EMACS | cleanup tmp
   become: true
   file:
