@@ -9,7 +9,7 @@
 - name: EMACS | Get EMACS sources
   become: true
   get_url: url="{{ emacs_url }}" dest="{{ emacs_tmp }}" timeout=180 force=no
-  when: ( {{ ansible_facts[ 'emacs_version' ] | default( 0 ) }} != "{{ emacs_version }}")
+  when: ( ansible_facts.emacs_version | default( 0 ) != "{{ emacs_version }}")
   register: emacs_downloaded
 
 - name: EMACS | Extract EMACS sources
