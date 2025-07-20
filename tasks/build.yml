@@ -2,15 +2,14 @@
 
 # file: tasks/main.yml
 
-- name: EMACS | check if install exists
-  stat:
-    path: "{{ emacs_install_dir }}/bin/{{ emacs_version }}"
-  register: emacs_exists
+- name: EMACS | check current emacs version
+  debug:
+    msg: "emacs version: {{ ansible_facts.emacs_version }}"
 
 - name: EMACS | Get EMACS sources
   become: true
   get_url: url="{{ emacs_url }}" dest="{{ emacs_tmp }}" timeout=180 force=no
-  when: not emacs_exists.stat.exists
+  when: (ansible_facts[ 'emacs_version' ] != "{{ emacs_version }}")
   register: emacs_downloaded
 
 - name: EMACS | Extract EMACS sources
@@ -64,10 +63,18 @@
       "{{ emacs_build }}"
     cmd:
       make install
+    stdin_add_newline:
+      false
   become: true
   when: emacs_build.changed
   register: emacs_install
 
+- name: EMACS | add customfact version installed
+  ansible.builtin.set_fact:
+    emacs_version: "{{ emacs_version }}"
+  become: true
+  when: emacs_install.changed
+  
 - name: EMACS | cleanup tmp
   become: true
   file:
