@@ -75,7 +75,7 @@
     state: directory
     recurse: yes
     mode: '0644'
-    when: emacs_install.changed
+  when: emacs_install.changed
   become: true
 
 - name: EMACS | add emacs version customfact into /etc/ansible/facts.d
