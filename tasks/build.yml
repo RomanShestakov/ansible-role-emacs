@@ -76,7 +76,7 @@
     recurse: yes
     mode: '0644'
     when: emacs_install.changed
-    become: true
+  become: true
 
 - name: EMACS | add emacs version customfact into /etc/ansible/facts.d
   action: template src=emacs.fact-template.j2
