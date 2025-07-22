@@ -2,11 +2,16 @@
 
 # file: tasks/deps.yml
 
+- name: EMACS | check current emacs version
+  debug:
+    msg: "emacs version: {{ ansible_local.emacs.version | default( 0 ) }}"
+
 - name: Tools for emacs build Ubuntu
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
     update_cache: yes
+  when: ( ansible_local.emacs.version | default( 0 ) != emacs_version ) and ( ansible_distribution == "Ubuntu" )
   with_items:
 
   - build-essential
@@ -34,6 +39,6 @@
   - libjansson4
   - libjansson-dev
 
-  #when: ansible_distribution == "Ubuntu"
-
 ...
+
+
