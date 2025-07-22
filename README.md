@@ -12,3 +12,8 @@ so to use treesitter you need to build from sources
 ** How to check what options emacs is built with
 
 C-h v system-configuration-options
+
+** customfact to skip rerunning the role if version already installed
+  this role creates customfacts in /etc/ansible/facts.d/emacs.fact
+  with installed version of emacs so we could skip installing it on rerun
+  
