@@ -2,23 +2,22 @@
 
 # file: tasks/main.yml
 
-tasks:
-  - name: EMACS | Build from source
-    block:
-      - name: EMACS | Include deps
-        include_tasks: deps.yml
-      - name: EMACS | Include deps
-        include_tasks: build.yml
-    when: emacs_from_sources
+- name: EMACS | Build from source
+  block:
+    - name: EMACS | Include deps
+      include_tasks: deps.yml
+    - name: EMACS | Include deps
+      include_tasks: build.yml
+  when: emacs_from_sources
 
-  - name: EMACS | Install Binary
-    block:
-      - name: EMACS | Include deps
-        ansible.builtin.apt:
-          name: "{{ item }}"
-          state: latest
-          update_cache: yes
-          when: not emacs_from_sources
-          with_items:
-            - emacs
+- name: EMACS | Install Binary
+  block:
+    - name: EMACS | Include deps
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        when: not emacs_from_sources
+        with_items:
+          - emacs
 ...
