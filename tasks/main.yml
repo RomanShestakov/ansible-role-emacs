@@ -13,7 +13,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
-    when: not emacs_from_sources
-    with_items:
-      - emacs
+  when: not emacs_from_sources
+  with_items:
+    - emacs
 ...
