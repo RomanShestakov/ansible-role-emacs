@@ -6,14 +6,14 @@
   block:
     - include_tasks: deps.yml
     - include_tasks: build.yml
-  when: emacs_from_sources
+  when: build_from_sources
 
 - name: EMACS | Install Binary
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
     update_cache: yes
-  when: not emacs_from_sources
+  when: not build_from_sources
   with_items:
     - emacs
 ...

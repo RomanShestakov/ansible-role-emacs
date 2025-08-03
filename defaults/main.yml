@@ -7,4 +7,4 @@ emacs_tmp: "/tmp/emacs-{{emacs_version}}.tar.gz"
 emacs_build: "/tmp/emacs-{{emacs_version}}"
 emacs_install_dir: "/usr/local"
 # build from source or install binary
-emacs_from_sources: false
+build_from_sources: false
