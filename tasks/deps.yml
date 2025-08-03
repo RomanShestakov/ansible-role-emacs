@@ -7,6 +7,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
+    cache_valid_time: 3600
   when: ( ansible_local.emacs.version | default( 0 ) != emacs_version ) and ( ansible_distribution == "Ubuntu" )
   with_items:
 
